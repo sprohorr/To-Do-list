@@ -1,15 +1,13 @@
 package by.tsm.todo.list;
 
-import by.tsm.todo.list.model.ToDoItem;
-import java.io.*;
-import java.util.List;
 import java.util.Scanner;
+import static by.tsm.todo.list.service.FileStorage.readDeserializedToDoList;
 import static by.tsm.todo.list.service.ToDoService.*;
+import static by.tsm.todo.list.service.Validator.inputNumberMenu;
 
 public class ToDoListRunner {
-    private static final String FILENAME = "C:\\Users\\User\\IdeaProjects\\todo-list\\src\\textFile.txt";
-
     public static void main(String[] args) {
+        todolist = readDeserializedToDoList();
         Scanner scanner = new Scanner(System.in);
         int number;
         do {
@@ -22,30 +20,12 @@ public class ToDoListRunner {
                 case 4 -> performOperationComplete(scanner);
                 case 5 -> performOperationDelete(scanner);
                 case 6 -> performOperationShortReview();
-                case 7 -> performOperationDetail();
+                case 7 -> performOperationDetail(scanner);
+                case 8 -> performOperationFilterByStatus(scanner);
+                case 9 -> performOperationFilterByTimeEnd(scanner);
+                case 10 -> performOperationFilterByToDoList(scanner);
             }
         } while (number != 0);
-        todolist = (List<ToDoItem>) readDeserializedToDoList();
-        System.out.println(todolist);
-        writeSerializedToDoList(todolist);
-        System.out.println(todolist);
     }
-    private static ToDoItem readDeserializedToDoList() {
-        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(FILENAME))) {
-            return (ToDoItem) input.readObject();
-        } catch (IOException e) {
-            System.out.println("Cannot read to file " + e.getClass().getName() + " " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.out.println("Cannot find class " + e.getClass().getName() + " " + e.getMessage());
-        }
-        return null;
-    }
-    private static void writeSerializedToDoList(List<ToDoItem> todolist) {
-        try (FileOutputStream fos = new FileOutputStream(FILENAME);
-             ObjectOutputStream output = new ObjectOutputStream(fos)) {
-            output.writeObject(todolist);
-        } catch (IOException e) {
-            System.out.println("Cannot write to file " + e.getClass().getName() + " " + e.getMessage());
-        }
-    }
+
 }

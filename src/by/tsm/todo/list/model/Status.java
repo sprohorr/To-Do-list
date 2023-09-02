@@ -1,4 +1,4 @@
-package by.tsm.todo.list;
+package by.tsm.todo.list.model;
 
 public enum Status {
     ACTIVE,
