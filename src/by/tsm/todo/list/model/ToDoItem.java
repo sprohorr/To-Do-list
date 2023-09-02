@@ -1,47 +1,44 @@
 package by.tsm.todo.list.model;
 
-import by.tsm.todo.list.Status;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 public class ToDoItem implements Serializable {
     private Integer caseNumber;
     private String task;
     private String description;
     private Status status;
-    private LocalDateTime localDateTimeCreate;
-    private String DateTimeEnd;
-
+    private LocalDateTime creationDateTime;
+    private LocalDateTime editDateTime;
     public ToDoItem(Integer caseNumber, String task, String description,
                     Status status,
-                    LocalDateTime localDateTimeCreate,
-                    String DateTimeEnd) {
+                    LocalDateTime creationDateTime,
+                    LocalDateTime editDateTime) {
         this.caseNumber = caseNumber;
         this.task = task;
         this.description = description;
         this.status = status;
-        this.localDateTimeCreate = localDateTimeCreate;
-        this.DateTimeEnd = DateTimeEnd;
+        this.creationDateTime = creationDateTime;
+        this.editDateTime = editDateTime;
     }
-
-    public void setDateTimeEnd(String dateTimeEnd) {DateTimeEnd = dateTimeEnd;}
     public Status getStatus() {return status;}
     public void setStatus(Status status) {this.status = status;}
     public void setTask(String task) {this.task = task;}
     public String getTask() {return task;}
     public void setDescription(String description) {this.description = description;}
+    public String getDescription() {return description;}
     public Integer getCaseNumber() {return caseNumber;}
+    public LocalDateTime getCreationDateTime() {return creationDateTime;}
+    public void setEditDateTime(LocalDateTime editDateTime) {this.editDateTime = editDateTime;}
 
     @Override
     public String toString() {
-        return "TodoItem{" +
-                "caseNumber=" + caseNumber +
-                ", task='" + task + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                ", DateTimeCreate=" + localDateTimeCreate +
-                ", DateTimeEnd=" + DateTimeEnd +
-                '}';
+        return "To-Do{" +
+                "Number:" + caseNumber +
+                ", {" + task +
+                "}, description: " + description +
+                ", [" + status +
+                "], Creation: " + creationDateTime +
+                ", Edit: " + editDateTime +
+                "} ";
     }
 }
